@@ -12,10 +12,6 @@ The analysis focuses on:
 2. Product performance
 3. Overall revenue
 4. Revenue by location
-
-The original analysis was preserved where technically sound.
-A consistent 2019 date filter has been applied throughout
-the workflow.
 */
 
 
