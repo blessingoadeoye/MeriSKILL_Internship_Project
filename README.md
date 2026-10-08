@@ -1,58 +1,518 @@
-## MeriSKILL INTERNSHIP ANALYTIC PROJECT
+# MeriSKILL Internship Projects
 
-#### About the Company/Data:
-**MeriSKILL-** The Data/Business Analytics internship, offered by MeriSKILL, provides a comprehensive hands-on experience in the dynamic field of data and business analytics to gain practical insights into collecting, processing, and analyzing data to derive valuable business insights. 
-The Company Internship covers areas such as Data mining, Statistical analysis, Predictive modeling, and Data visualization, creating the opportunity to work with real-time business projects in collaboration with the innovative team at MeriSKILL, refining data and business analytics skills.
+## Introduction
 
-## Project One
-### Title: “Sales Data Analysis”
+This repository comprises two data analytics projects completed during my Data/Business Analytics internship with **MeriSKILL**:
 
-#### Description:
-Diving into a large sales dataset to extract valuable insights to explore sales trends over time to: 
-- Identify the best-selling products; Calculating revenue metrics such as Total sales and Profit margins
-- Create Visualizations to present findings effectively showing the ability to manipulate and derive insights from large datasets, enabling to make data-driven recommendations for optimizing sales strategies.
- 
-#### Business Task:
-Analyze sales data to identify:
-- Trends
-- Top-selling products
-- Revenue metrics for business decision-making
+1. **Sales Data Analysis** — Exploring sales trends, product performance, revenue, and geographic sales distribution.
+2. **HR Attrition Analysis** — Examining employee attrition across demographic, job-related, engagement, and organizational characteristics.
 
-  
-## PROJECT TWO
-### Title: "HR Analytics"
+The internship provided an opportunity to apply data analytics skills to practical business questions, using **SQL for data analysis** and **Power BI for data visualization**.
 
-**Description:**
-Examining and analyzing the employees' data to:
-- Determine the rate of Attrition among team members
-- Uncover the factors responsible for Attrition in specific organisations and the rate of Attrition as caused by those factors
-- Create Visualizations to present findings effectively showing the ability to manipulate and derive insights from large datasets, enabling to make data-driven recommendations for optimizing business organisation
+Each project addresses a different business problem and is presented separately below.
 
-**Business Task:**
-Analyze the data to determine:
-- Total employee count and the Percentage rate of Attrition
-- Employees attrition rate as influenced by:
-i. Demography.
-ii. Job duty.
-iii. Employee engagement.
-iv. Organization.
+The Sales Analysis recorded approximately **$34.48 million in sales revenue for 2019**, with the highest order activity occurring in the final quarter. The HR Attrition Analysis examined **1,470 employees**, including **237 recorded departures**, representing an overall attrition rate of **16.12%**.
 
-### HR Analytics Report:
-We have a total **1470** employee counts with an Attrition count of **237(16.12%).**
-Based on the Attrition count, however:
-- The **Male** Gender covers 63.30%, with 150 counts of the total 237. While the remaining 36.70% is dominated by the **Female** gender with 83 Attrition counts
-- The Age distribution presents that the attrition is major and common among the Youths and, most especially, Young adults within the age range of **"18-30"** and **"31-45"** respectively
-- **Marital Status,** and by **Gender,** also further present the fact that attrition rate is higher among the Male employees. However, it is most common among the **Singles,** both Male and Female, followed by the **Married,** while the **Divorced** employees has a very few rate of Attrition.
-- Finally, by **Education Field:** The **Life Sciences** has the highest rate of attrition of 37.60% of 89 attrition counts, followed by the **Medical Field** with 63 counts, resulting to approximately 27%
-#### Attrition Rate by Employee Engagement
-- Employees with **Low Performance** has quite significant high attrition of 84.39%, while by **Job involvement** and **Work-Life-Balance** present a significant rise in attrition at the **"Moderate"** level.
- This implies that the attrition in these cases was caused by neither a poor nor excellent Job experience.
-- **Job Overtime** or not, also, does not seem to be a factor, yet there is nearly the same attrition rate in both cases, while employees located near the work environment has significant high attrition rate of 60.80%.
-#### Attrition Rate by Job Duty
-- Employees at the **Entry Level** has the highest attrition rate of 60.33% with 143 attrition counts, while the **Senior** and the **Executive Level** barely have attrition.
-#### Attrition Rate by Department
-- The **Research & Development** has the highest rate of 56%, followed by the **Sales** department with 38.80%.
-- Tracking further through the **Job Role,** Laboratory Technician and Sales Executive dominate the attrition with 26% and 24% respectively.
-#### Attrition Rate by Organization
-- **Job and Relationship Satisfaction** do not seem to have much influence in employee retention as, apparently, satisfied employees dominate the attrition in both cases.
-However, the **Job Environment** is a huge factor as 30% of the attrited employees are very dissatisifed with the environment.
+## Background
+
+The MeriSKILL Data/Business Analytics internship provided practical experience in examining datasets, identifying business patterns, and presenting analytical findings.
+
+Two datasets were examined during the internship:
+
+- **Sales Dataset:** Sales transactions containing order dates, order identifiers, products, quantities, prices, and geographic information.
+- **HR Dataset:** Employee records containing demographic information, job characteristics, attrition status, engagement indicators, and satisfaction ratings.
+
+The projects were analyzed independently, with SQL used to answer the business questions and Power BI used to present the results visually.
+
+## Tools and SQL Techniques
+
+- **SQL:** Data querying, filtering, aggregation, grouping, and conditional categorization.
+- **SQL Functions and Techniques:** `COUNT()`, `COUNT(DISTINCT)`, `SUM()`, `GROUP BY`, `ORDER BY`, `WHERE`, and `CASE` expressions.
+- **Power BI:** Interactive dashboards and visual reporting.
+- **Data Analysis:** Exploring business trends, comparing categories, and interpreting results.
+- **Business Reporting:** Communicating analytical findings to support business understanding.
+
+---
+
+# Project One: Sales Data Analysis
+
+## Project Description
+
+This project involved exploring a sales dataset to understand sales performance over time, identify frequently purchased products, examine revenue contributions, and compare sales across cities.
+
+The analysis focused on identifying patterns that could inform business decisions about sales performance and product priorities.
+
+### Business Task
+
+Analyze the sales data to:
+
+- Identify monthly and quarterly sales trends.
+- Determine the most frequently ordered products.
+- Examine product quantities and revenue contributions.
+- Calculate overall sales revenue.
+- Compare sales revenue across cities.
+- Present the findings through a Power BI dashboard.
+
+## SQL Analysis
+
+The SQL analysis examined seven questions covering order trends, product performance, overall revenue, and geographic distribution.
+
+**SQL file:** [Sales_Analysis.sql](Sales%20Analysis.sql)
+
+### 1. Monthly and Quarterly Order Trends
+
+**Analytical Question:** How did order activity change across the months and quarters of 2019?
+
+The analysis counted distinct orders to examine how sales activity changed throughout the year.
+
+A representative part of the analysis involved grouping orders by month:
+
+```sql
+SELECT
+    MONTH(order_date) AS sales_month,
+    COUNT(DISTINCT Order_ID) AS total_orders
+FROM sales_data
+WHERE order_date < '2020-01-01'
+GROUP BY MONTH(order_date)
+ORDER BY sales_month;
+```
+
+The recorded monthly results showed:
+
+| Period | Recorded Orders |
+|---|---:|
+| January | 9,262 |
+| February | 11,496 |
+| March | 14,549 |
+| April | 17,528 |
+| May | 15,836 |
+| June | 12,989 |
+| July | 13,761 |
+| August | 11,484 |
+| September | 11,202 |
+| October | 19,436 |
+| November | 16,859 |
+| December | 24,004 |
+
+December recorded the highest monthly order count at **24,004**, followed by October at **19,436**.
+
+The quarterly analysis also showed stronger order activity toward the end of the year:
+
+| Quarter | Recorded Orders |
+|---|---:|
+| Q1 | 35,307 |
+| Q2 | 46,353 |
+| Q3 | 36,447 |
+| Q4 | 60,299 |
+
+**Finding:** Q4 recorded the highest order count, indicating that order activity was strongest in the final quarter of the reporting year.
+
+### 2. Product Performance
+
+**Analytical Question:** Which products performed best by order frequency, quantity ordered, and revenue?
+
+Product performance was examined using three different measures:
+
+- **Order frequency:** The number of distinct orders containing each product.
+- **Quantity ordered:** The total number of units ordered.
+- **Sales revenue:** The revenue generated by each product.
+
+The SQL analysis used distinct order counts, quantity aggregation, and revenue aggregation to compare product performance.
+
+For example, product revenue was examined by aggregating sales values across products:
+
+```sql
+SELECT
+    Product,
+    SUM(sales) AS total_revenue
+FROM sales_data
+WHERE order_date < '2020-01-01'
+GROUP BY Product
+ORDER BY total_revenue DESC;
+```
+
+The leading products differed depending on the measure used.
+
+| Performance Measure | Leading Product | Recorded Result |
+|---|---|---:|
+| Order frequency | USB-C Charging Cable | 21,851 orders |
+| Quantity ordered | AAA Batteries (4-pack) | 31,017 units |
+| Sales revenue | MacBook Pro Laptop | $8,035,900.00 |
+
+The USB-C Charging Cable appeared in the highest number of distinct orders, while AAA Batteries (4-pack) had the highest recorded quantity ordered.
+
+However, the MacBook Pro Laptop generated the highest product revenue.
+
+**Finding:** Frequently ordered products were not necessarily the largest contributors to revenue. Considering order frequency, quantity, and revenue separately provided a more complete view of sales performance.
+
+### 3. Overall Sales Revenue
+
+**Analytical Question:** How much sales revenue was recorded during 2019?
+
+The SQL analysis used revenue aggregation to calculate the overall sales revenue for the reporting year.
+
+```sql
+SELECT
+    SUM(sales) AS total_revenue
+FROM sales_data
+WHERE order_date < '2020-01-01';
+```
+
+The SQL analysis recorded approximately **$34.48 million** in total sales revenue for 2019.
+
+| Metric | Recorded Result |
+|---|---:|
+| Total Sales Revenue | $34,483,365.68 |
+
+This figure represents sales revenue, not business profit.
+
+### 4. Geographic Sales Performance
+
+**Analytical Question:** Which cities generated the highest recorded sales revenue?
+
+The original SQL results also compared sales revenue across cities.
+
+| City | Recorded Revenue |
+|---|---:|
+| San Francisco | $8,262,203.91 |
+| Los Angeles | $5,452,570.80 |
+| New York City | $4,664,317.43 |
+| Boston | $3,661,642.01 |
+| Atlanta | $2,795,498.58 |
+
+**Finding:** San Francisco recorded the highest revenue among the cities in the original analysis, followed by Los Angeles and New York City.
+
+## Sales Analysis Dashboard
+
+The Power BI dashboard presents the sales analysis visually, including revenue, order activity, product performance, and geographic distribution.
+
+![Sales Analysis Dashboard](reports/Sales%20Analysis%20Report.png)
+
+## Sales Analysis Summary
+
+The analysis showed that:
+
+- Order activity was strongest in the final quarter of 2019, with December recording the highest monthly order count.
+- USB-C Charging Cable led in distinct order frequency.
+- AAA Batteries (4-pack) led in recorded quantity ordered.
+- MacBook Pro Laptop generated the highest product revenue.
+- San Francisco led the original city-level revenue comparison.
+
+Together, these findings demonstrate why sales performance should be examined through multiple measures rather than a single sales-volume metric.
+
+---
+
+# Project Two: HR Attrition Analysis
+
+## Project Description
+
+This project examined employee data to understand the distribution of attrition across different workforce characteristics.
+
+The analysis explored employee demographics, job duties, engagement indicators, and organizational factors to identify where recorded employee departures were concentrated.
+
+### Business Task
+
+Analyze the employee dataset to:
+
+- Determine the total workforce and overall attrition rate.
+- Examine attrition counts across demographic categories.
+- Explore departures by department, job role, and job level.
+- Examine recorded leavers across employee engagement measures.
+- Explore satisfaction-related characteristics.
+- Present the findings through Power BI dashboards.
+
+## SQL Analysis
+
+The SQL analysis covered the overall workforce, attrition status, and employee characteristics using grouped counts and conditional categories.
+
+**SQL file:** [HR_Attrition_Analysis.sql](HR%20Attrition%20Analysis.sql)
+
+### 1. Workforce Overview
+
+**Analytical Question:** What proportion of employees were recorded as having left the organization?
+
+The analysis began by counting the total workforce and examining employee attrition status.
+
+| Workforce Metric | Employee Count |
+|---|---:|
+| Total Employees | 1,470 |
+| Employees Who Left | 237 |
+| Employees Who Stayed | 1,233 |
+| Overall Attrition Rate | 16.12% |
+
+Of the **1,470 employees** in the dataset, **237** were recorded as having left the organization, producing an overall attrition rate of approximately **16.12%**.
+
+The following sections examine the characteristics of those 237 employees.
+
+### 2. Attrition by Employee Demographics
+
+**Analytical Question:** How were recorded departures distributed across demographic categories?
+
+The analysis examined gender, age groups, marital status, and education fields.
+
+For example, gender-based departures were identified by filtering employees with a recorded attrition status of `Yes` and grouping the results by gender:
+
+```sql
+SELECT
+    Gender,
+    COUNT(*) AS attrition_count
+FROM hr_data
+WHERE Attrition = 'Yes'
+GROUP BY Gender
+ORDER BY attrition_count DESC;
+```
+
+#### Gender
+
+| Gender | Recorded Leavers | Share of Leavers |
+|---|---:|---:|
+| Male | 150 | 63.3% |
+| Female | 87 | 36.7% |
+
+Male employees accounted for a larger share of recorded departures.
+
+However, this comparison alone does not establish whether male employees had a higher attrition rate, because the total number of male and female employees in the workforce was not included in this comparison.
+
+#### Age Group
+
+| Age Group | Recorded Leavers |
+|---|---:|
+| 18–30 | 100 |
+| 31–45 | 103 |
+| 46–60 | 34 |
+
+The largest numbers of recorded leavers were in the **31–45** and **18–30** age groups, with 103 and 100 departures, respectively.
+
+#### Marital Status
+
+The original analysis also examined attrition by marital status and gender.
+
+Single employees accounted for the largest number of recorded departures, followed by married and divorced employees.
+
+#### Education Field
+
+| Education Field | Recorded Leavers |
+|---|---:|
+| Life Sciences | 89 |
+| Medical | 63 |
+| Marketing | 35 |
+| Technical Degree | 32 |
+| Other | 11 |
+| Human Resources | 7 |
+
+Life Sciences accounted for the largest share of recorded departures, followed by Medical.
+
+### 3. Attrition by Job Characteristics
+
+**Analytical Question:** How were recorded departures distributed across departments, job roles, and job levels?
+
+The SQL analysis grouped employees who left by their department, job role, and job level.
+
+#### Department
+
+| Department | Recorded Leavers |
+|---|---:|
+| Research & Development | 133 |
+| Sales | 92 |
+| Human Resources | 12 |
+
+Research & Development accounted for **133 of the 237 recorded departures**, representing approximately **56.1% of leavers**.
+
+Sales accounted for 92 departures, while Human Resources accounted for 12.
+
+These results identify where departures were concentrated, rather than comparing department-specific attrition rates.
+
+#### Job Role
+
+| Job Role | Recorded Leavers |
+|---|---:|
+| Laboratory Technician | 62 |
+| Sales Executive | 57 |
+| Research Scientist | 47 |
+| Sales Representative | 33 |
+| Human Resources | 12 |
+
+Laboratory Technicians and Sales Executives accounted for the highest recorded departure counts among job roles.
+
+#### Job Level
+
+| Job Level | Recorded Leavers |
+|---|---:|
+| Entry Level | 143 |
+| Junior/Associate | 52 |
+| Mid Specialist | 32 |
+| Senior | 5 |
+| Executive | 5 |
+
+Entry-level employees accounted for **143 departures**, or approximately **60.3% of all recorded leavers**.
+
+This was the largest departure count among the job-level categories examined.
+
+### 4. Attrition by Employee Engagement
+
+**Analytical Question:** What engagement and work-related characteristics were recorded among employees who left?
+
+The analysis explored several employee engagement and work-related characteristics, including performance ratings, job involvement, work-life balance, overtime, and distance from home.
+
+#### Performance Rating
+
+| Performance Rating Category | Recorded Leavers |
+|---|---:|
+| Lower Recorded Rating | 200 |
+| Higher Recorded Rating | 37 |
+
+Most recorded leavers belonged to the lower of the two performance-rating categories present in the original SQL output.
+
+#### Work-Life Balance
+
+| Work-Life Balance | Recorded Leavers |
+|---|---:|
+| Bad | 25 |
+| Average | 58 |
+| Good | 127 |
+| Excellent | 27 |
+
+Employees with a **Good** work-life balance rating accounted for the largest number of recorded departures.
+
+#### Job Involvement
+
+| Job Involvement | Recorded Leavers |
+|---|---:|
+| Very Low | 28 |
+| Low | 71 |
+| Moderate | 125 |
+| High | 13 |
+
+The **Moderate** job-involvement category accounted for the largest number of recorded departures.
+
+#### Overtime
+
+| Overtime Status | Recorded Leavers |
+|---|---:|
+| Yes | 127 |
+| No | 110 |
+
+Of the 237 recorded leavers, 127 worked overtime and 110 did not.
+
+Although the counts are relatively close, the results alone cannot establish whether overtime affected attrition risk.
+
+### 5. Attrition by Organizational Factors
+
+**Analytical Question:** How were recorded departures distributed across satisfaction categories?
+
+The analysis also examined job satisfaction, environment satisfaction, and relationship satisfaction.
+
+#### Job Satisfaction
+
+| Job Satisfaction | Recorded Leavers |
+|---|---:|
+| Very Dissatisfied | 66 |
+| Dissatisfied | 46 |
+| Satisfied | 73 |
+| Very Satisfied | 52 |
+
+The **Satisfied** category accounted for the largest number of recorded departures, followed by **Very Dissatisfied**.
+
+#### Environment Satisfaction
+
+| Environment Satisfaction | Recorded Leavers |
+|---|---:|
+| Very Dissatisfied | 72 |
+| Dissatisfied | 43 |
+| Satisfied | 62 |
+| Very Satisfied | 60 |
+
+The **Very Dissatisfied** category recorded the highest departure count for environment satisfaction.
+
+#### Relationship Satisfaction
+
+| Relationship Satisfaction | Recorded Leavers |
+|---|---:|
+| Very Dissatisfied | 57 |
+| Dissatisfied | 45 |
+| Satisfied | 71 |
+| Very Satisfied | 64 |
+
+The **Satisfied** category accounted for the largest number of recorded departures for relationship satisfaction.
+
+**Finding:** Recorded departures occurred across both positive and negative satisfaction categories. These distributions are useful for describing the employees who left, but they do not independently justify the influence of satisfaction on attrition.
+
+## HR Analytics Dashboards
+
+Power BI reports were developed to visualize the employee attrition analysis.
+
+### HR Analytics Report — Page 1
+
+![HR Analytics Dashboard Page 1](reports/HR%20Analytics%20Report.1.png)
+
+### HR Analytics Report — Page 2
+
+![HR Analytics Dashboard Page 2](reports/HR%20Analytics%20Report.2.png)
+
+### HR Analytics Report — Page 3
+
+![HR Analytics Dashboard Page 3](reports/HR%20Analytics%20Report.3.png)
+
+The dashboards provide visual summaries of the workforce overview and the employee categories examined in the SQL analysis.
+
+## HR Attrition Analysis Summary
+
+The analysis established an overall employee attrition rate of **16.12%** and explored the distribution of 237 recorded departures.
+
+The highest recorded departure counts were observed among:
+
+- Male employees within the gender comparison.
+- Employees aged 31–45 and 18–30.
+- Employees in Research & Development.
+- Laboratory Technicians and Sales Executives.
+- Entry-level employees.
+- Employees in the Moderate job-involvement category.
+
+These findings describe patterns within the recorded leaver population. But further analysis using the total workforce in each category would be required to compare group-specific attrition rates and assess possible relationships with employee departures.
+
+---
+
+## What I Learned
+
+These projects gave me experience in applying SQL and Power BI to different analytical questions.
+
+The Sales Analysis strengthened my understanding of how to:
+
+- Use SQL aggregations to examine monthly and quarterly order trends.
+- Distinguish between order frequency, product quantity, and sales revenue.
+- Compare sales performance across products and cities.
+- Present sales findings through a Power BI dashboard.
+
+The HR Attrition Analysis enlightened me on:
+
+- Using SQL to explore employee records across multiple categories.
+- Applying conditional groupings to examine employee characteristics.
+- Comparing attrition counts across demographic, job-related, engagement, and organizational factors.
+- Interpreting employee departure distributions without confusing them with group-specific attrition rates.
+- Presenting workforce findings through Power BI dashboards.
+
+Together, the projects reinforced the importance of connecting analytical questions, SQL results, and visual reporting when communicating business findings.
+
+## Repository Files
+
+```text
+MeriSKILL_Internship_Project/
+├── reports/
+│   ├── Sales Analysis Report.png
+│   ├── HR Analytics Report.1.png
+│   ├── HR Analytics Report.2.png
+│   └── HR Analytics Report.3.png
+├── HR_Attrition_Analysis.sql
+├── README.md
+└── Sales_Analysis.sql
+```
+
+## Conclusion
+
+These two internship projects provided practical experience in using SQL to investigate business questions and Power BI to communicate analytical findings.
+
+The Sales Analysis project examined how order activity, product performance, revenue, and geographic distribution contributed to the overall sales picture.
+
+The HR Attrition Analysis project examined the distribution of employee departures across workforce characteristics, highlighting the importance of distinguishing descriptive counts from attrition rates.
+
+Together, the projects demonstrate the application of SQL-based exploratory analysis, dashboard development, and evidence-based interpretation to different business datasets.
