@@ -24,6 +24,15 @@ Two datasets were examined during the internship:
 
 The projects were analyzed independently, with SQL used to answer the business questions and Power BI used to present the results visually.
 
+## Project Materials and Deliverables
+
+| Project | SQL workflow | Dashboard |
+|---|---|---|
+| Sales Data Analysis | [Sales SQL analysis](analysis_workflow/Sales%20Analysis.sql) | [Sales dashboard](reports/Sales%20Analysis%20Report.png) |
+| HR Attrition Analysis | [HR SQL analysis](analysis_workflow/HR%20Attrition%20Analysis.sql) | [HR dashboard](reports/HR%20Analytics%20Report.1.png) |
+
+**Dataset availability:** The original datasets are not included in the documented repository files, and their download sources have not been verified. The SQL workflows and exported dashboard images preserve the analysis and its visual deliverables. Reproducing the results requires the source datasets and corresponding SQL tables.
+
 ## Tools and SQL Techniques
 
 - **SQL:** Data querying, filtering, aggregation, grouping, and conditional categorization.
@@ -53,11 +62,22 @@ Analyze the sales data to:
 - Compare sales revenue across cities.
 - Present the findings through a Power BI dashboard.
 
+### Business Questions and Analytical Reasoning
+
+Beyond calculating totals, I wanted to understand what different sales measures could tell the business:
+
+1. When was order activity strongest, and what might that mean for demand planning?
+2. Do the products customers order most frequently also generate the most revenue?
+3. How do order frequency, units sold, and revenue change the interpretation of product performance?
+4. Which locations contributed most to recorded revenue, and what would be needed to explain the differences?
+
+These questions shaped the analysis. Distinct order counts were used to measure purchasing activity, while quantities and revenue were considered separately to avoid treating different measures as interchangeable.
+
 ## SQL Analysis
 
 The SQL analysis examined seven questions covering order trends, product performance, overall revenue, and geographic distribution.
 
-**SQL file:** [Sales_Analysis.sql](Sales%20Analysis.sql)
+**SQL file:** [Sales Analysis.sql](analysis_workflow/Sales%20Analysis.sql)
 
 ### 1. Monthly and Quarterly Order Trends
 
@@ -74,7 +94,7 @@ SELECT
 FROM sales_data
 WHERE order_date < '2020-01-01'
 GROUP BY MONTH(order_date)
-ORDER BY sales_month;
+ORDER BY MONTH(order_date);
 ```
 
 The recorded monthly results showed:
@@ -188,6 +208,16 @@ The Power BI dashboard presents the sales analysis visually, including revenue, 
 
 ![Sales Analysis Dashboard](reports/Sales%20Analysis%20Report.png)
 
+## Business Interpretation and Next Steps
+
+The results suggest that the business should evaluate performance through several complementary measures rather than a single ranking.
+
+- **Demand planning:** Q4 had the most orders, making it a useful period for further investigation of inventory and fulfillment needs. A single year cannot establish a recurring seasonal pattern.
+- **Product decisions:** Charging accessories led in order or unit volume, while the MacBook Pro Laptop led in revenue. Prioritization would depend on whether the business aims to improve order volume, revenue, or profitability.
+- **Geographic decisions:** San Francisco was the leading city by revenue, but market size, customer counts, and operating costs would be needed before making investment recommendations.
+
+These are business implications to investigate, not demonstrated causes of performance. The SQL results do not include cost data, so they cannot establish product or city profitability.
+
 ## Sales Analysis Summary
 
 The analysis showed that:
@@ -221,11 +251,22 @@ Analyze the employee dataset to:
 - Explore satisfaction-related characteristics.
 - Present the findings through Power BI dashboards.
 
+### Business Questions and Analytical Reasoning
+
+This project asked not only *where departures occurred*, but also *what can responsibly be concluded from the available comparisons*:
+
+1. What proportion of the recorded workforce had left?
+2. Which demographic groups, departments, and job levels accounted for the most departures?
+3. How were departures distributed across overtime, work-life balance, involvement, and satisfaction measures?
+4. Do these distributions establish which employee groups face higher attrition risk, or would additional comparisons be necessary?
+
+I first established the overall workforce and departure count, then examined the characteristics of employees who left. The distinction between a **count of leavers** and an **attrition rate within a subgroup** guided the interpretation throughout.
+
 ## SQL Analysis
 
 The SQL analysis covered the overall workforce, attrition status, and employee characteristics using grouped counts and conditional categories.
 
-**SQL file:** [HR_Attrition_Analysis.sql](HR%20Attrition%20Analysis.sql)
+**SQL file:** [HR Attrition Analysis.sql](analysis_workflow/HR%20Attrition%20Analysis.sql)
 
 ### 1. Workforce Overview
 
@@ -256,8 +297,8 @@ For example, gender-based departures were identified by filtering employees with
 SELECT
     Gender,
     COUNT(*) AS attrition_count
-FROM hr_data
-WHERE Attrition = 'Yes'
+FROM hr_analysis
+WHERE Attrition = 'yes'
 GROUP BY Gender
 ORDER BY attrition_count DESC;
 ```
@@ -455,6 +496,16 @@ Power BI reports were developed to visualize the employee attrition analysis.
 
 The dashboards provide visual summaries of the workforce overview and the employee categories examined in the SQL analysis.
 
+## Business Interpretation and Next Steps
+
+The results help identify areas for further HR investigation, but they should not be interpreted as evidence that particular characteristics caused employees to leave.
+
+- **Workforce planning:** Research & Development and entry-level roles accounted for substantial numbers of departures. Comparing their departures against the total number of employees in each group would establish whether their *rates* were unusually high.
+- **Work conditions:** Overtime, job involvement, and work-life balance were examined among leavers. Comparing leavers and non-leavers within each category would provide a stronger basis for understanding potential associations.
+- **Employee experience:** Departures occurred across positive and negative satisfaction ratings. Follow-up analysis could calculate category-specific attrition rates before considering retention interventions.
+
+The most useful next step is to calculate subgroup attrition rates using the complete workforce, rather than ranking categories by departure counts alone.
+
 ## HR Attrition Analysis Summary
 
 The analysis established an overall employee attrition rate of **16.12%** and explored the distribution of 237 recorded departures.
@@ -474,37 +525,47 @@ These findings describe patterns within the recorded leaver population. But furt
 
 ## What I Learned
 
-These projects gave me experience in applying SQL and Power BI to different analytical questions.
+These projects strengthened my SQL and Power BI skills, but they also changed how I think about business questions and evidence.
 
-The Sales Analysis strengthened my understanding of how to:
+### 1. Choosing a measure that matches the question
 
-- Use SQL aggregations to examine monthly and quarterly order trends.
-- Distinguish between order frequency, product quantity, and sales revenue.
-- Compare sales performance across products and cities.
-- Present sales findings through a Power BI dashboard.
+The Sales Analysis showed me that **order frequency, quantity ordered, and revenue answer different questions**. A product can appear in many orders without generating the most revenue. I learned to define what “best performing” means before comparing products, rather than relying on one ranking.
 
-The HR Attrition Analysis enlightened me on:
+### 2. Understanding the denominator before comparing groups
 
-- Using SQL to explore employee records across multiple categories.
-- Applying conditional groupings to examine employee characteristics.
-- Comparing attrition counts across demographic, job-related, engagement, and organizational factors.
-- Interpreting employee departure distributions without confusing them with group-specific attrition rates.
-- Presenting workforce findings through Power BI dashboards.
+The HR analysis made the difference between **departure counts** and **group-specific attrition rates** especially clear. Research & Development had the most recorded departures, but that alone does not prove employees there were more likely to leave. To make that comparison, I would need the number of employees in each department, including those who stayed.
 
-Together, the projects reinforced the importance of connecting analytical questions, SQL results, and visual reporting when communicating business findings.
+### 3. Moving from SQL outputs to business reasoning
+
+SQL helped me aggregate orders, revenue, and employee records; Power BI helped me communicate those patterns. The more important lesson was learning to ask what each result means for a business decision. For example, a strong fourth quarter raises useful demand-planning questions, but it does not explain what caused the increase.
+
+### 4. Being careful about what the data can establish
+
+The Sales project does not include the cost information needed to assess profit. The HR subgroup queries describe employees who left, but they do not establish the causes of attrition. I learned that acknowledging these limitations makes an analysis more credible and helps identify the right next question.
+
+Together, the projects reinforced an approach I want to carry into future work: **start with the business problem, choose the right measure, examine the evidence, interpret it carefully, and identify what should be investigated next.**
+
+## Analytical Limitations
+
+- **Sales reporting period:** The SQL queries use `order_date < '2020-01-01'`. The 2019 interpretation assumes the underlying dataset contains no earlier records requiring an additional lower date boundary.
+- **Revenue versus profit:** Recorded sales revenue does not account for product costs, marketing expenditure, or operating expenses.
+- **HR comparisons:** The overall attrition rate uses the full workforce. Most demographic, job, and satisfaction queries filter to employees who left, so their results are **counts of leavers**, not subgroup-specific attrition rates.
+- **Causality:** Neither project establishes why sales changed or why employees left.
+- **Reproduction:** The repository documents the SQL and dashboard images, but the original source datasets are not provided here.
 
 ## Repository Files
 
 ```text
 MeriSKILL_Internship_Project/
+├── analysis_workflow/
+│   ├── HR Attrition Analysis.sql
+│   └── Sales Analysis.sql
 ├── reports/
 │   ├── Sales Analysis Report.png
 │   ├── HR Analytics Report.1.png
 │   ├── HR Analytics Report.2.png
 │   └── HR Analytics Report.3.png
-├── HR_Attrition_Analysis.sql
-├── README.md
-└── Sales_Analysis.sql
+└── README.md
 ```
 
 ## Conclusion
